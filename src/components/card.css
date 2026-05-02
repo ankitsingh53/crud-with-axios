@@ -1,0 +1,34 @@
+.inputBox {
+    width: 80%;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+}
+.inputBox input {
+    width: 30%;
+}
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.cardBox {
+    width: 350px;
+    height: 200px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 2px solid black;
+}
+.changebtn {
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    gap: 10px;
+}
