@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getPost } from "./Api/PostApi";
+import { getPost, deletePost } from "./Api/PostApi";
 import { useState, useEffect } from "react";
 import Card from "./components/Card";
 
@@ -17,13 +17,29 @@ function App(){
     }
   }
 
+  const handleDeletePost = async (id)=>{
+        try{
+            const res = await deletePost(id);
+            if(res.status === 200){
+                const newUpdatedData = data.filter((delData)=>{
+                    return delData.id === id;
+                });
+                setData(newUpdatedData);
+            }
+
+        }catch(err){
+            console.log(err.message)
+        }
+    }
+
+
   useEffect(()=>{
     getPostData();
   }, [])
 
   return (
     <>
-    <Card data={data}/>
+    <Card data={data} onButtonClick={handleDeletePost}/>
     </>
   )
 }

@@ -19,12 +19,13 @@
 }
 .cardBox {
     width: 350px;
-    height: 200px;
+    height: auto;
     gap: 15px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     border: 2px solid black;
+    text-align: justify;
 }
 .changebtn {
     display: flex;
