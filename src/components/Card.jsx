@@ -1,31 +1,67 @@
+import { postData } from '../Api/PostApi';
 import './card.css'
 import { useState } from 'react';
 
-function Card ({data, onButtonClick}){
+function Card ({data, setData, onButtonClick}){
 
-    // const handleDeletePost = async (id)=>{
-    //     try{
+    const[addData, setAddData] = useState({
+        title: "",
+        body: ""
+    });
 
-    //         const res = await deletePost(id);
-    //         if(res.status === 200){
-    //             const newUpdatedData = data.filter((delData)=>{
-    //                 return delData.id === id;
-    //             });
-    //         }
+    const handleInputChange = (e)=>{
+        const name = e.target.name;
+        const value = e.target.value;
 
-    //         setData(newUpdatedData);
+        setAddData((prev)=>{
+            return {
+                ...prev,
+                [name]: value,
+            };
+        });
+    };
+    
 
-    //     }catch(err){
-    //         console.log(err.message)
-    //     }
-    // }
+    const addPostData = async (addData)=>{
+       const response = await postData(addData);
+       console.log(response)
+       if(response.status===201){
+        setData([...data, response.data])
+       }
+    }
+
+    const handleForm = (e)=>{
+        e.preventDefault();
+        addPostData(addData);
+        // console.log(addData)
+    }
+
+   
     return(
         <>
-        <div className="inputBox">
-            <input type="text" placeholder="title"/>
-            <input type="text" placeholder="Add Post"/>
-            <button className="addBtn">ADD</button>
-        </div>
+        
+        <form className="inputBox" onSubmit={handleForm}>
+            <input 
+            type="text" 
+            placeholder="title"
+            autoComplete='off'
+            name='title'
+            id='title'
+            value={addData.title}
+            onChange={handleInputChange}
+            />
+            <input 
+            type="text" 
+            placeholder="Add Post"
+            autoComplete='off'
+            name='body'
+            id='body'
+            value={addData.body}
+            onChange={handleInputChange}
+            />
+            <button type='submit' className="addBtn">ADD</button>
+        </form>
+
         <div className="Container">
             {
                 data.map((item)=>
